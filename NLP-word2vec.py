@@ -5,7 +5,59 @@ import codecs
 import gensim
 import jieba
 import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+# x = range(10)
+# plt.plot(x)
+# plt.title("中文")
+# plt.show()
+with codecs.open('names.txt', encoding="utf8") as f:
+    # 去掉结尾的换行符
+    data = [line.strip() for line in f]
+
+novels = data[::2]
+names = data[1::2]
+
+novel_names = {k: v.split() for k, v in zip(novels, names)}
+
+for name in novel_names['天龙八部'][:20]:
+    print(name)
+
+# def find_main_charecters(novel, num=10):
+#     with codecs.open('novels/{}.txt'.format(novel), encoding="utf8") as f:
+#         data = f.read()
+#     chars = novel_names[novel]
+#     count = list(map(lambda x: data.count(x), chars))
+#     idx = np.argsort(count)
+#
+#     plt.barh(range(num), count[idx[-num:][0]], color='red', align='center')
+#     plt.title(novel, fontsize=14)
+#     plt.yticks(range(num), chars[idx[-num:][0]], fontsize=14)
+#     plt.show()
+#
+#
+# find_main_charecters("天龙八部")
+# find_main_charecters("射雕英雄传")
+# find_main_charecters("神雕侠侣")
+# find_main_charecters("倚天屠龙记")
+
+for _, names in novel_names.iteritems():
+    for name in names:
+        jieba.add_word(name)
+
+with codecs.open("kungfu.txt", encoding="utf8") as f:
+    kungfu_names = [line.strip() for line in f]
+with codecs.open("bangs.txt", encoding="utf8") as f:
+    bang_names = [line.strip() for line in f]
+
+for name in kungfu_names:
+    jieba.add_word(name)
+
+for name in bang_names:
+    jieba.add_word(name)
 novels = ["书剑恩仇录",
           "天龙八部",
           "碧血剑",
@@ -91,7 +143,6 @@ for c in range(N):
             print()
     print()
 
-
 import scipy.cluster.hierarchy as sch
 
 Y = sch.linkage(word_vectors, method="ward")
@@ -102,8 +153,7 @@ Z = sch.dendrogram(Y, orientation='right')
 idx = Z['leaves']
 
 ax.set_xticks([])
-ax.set_yticklabels(all_names[idx],
-                   fontproperties=font_yahei_consolas)
+ax.set_yticklabels(all_names[idx])
 ax.set_frame_on(False)
 
 plt.show()
