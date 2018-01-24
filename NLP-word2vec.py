@@ -44,7 +44,7 @@ for name in novel_names['天龙八部'][:20]:
 # find_main_charecters("神雕侠侣")
 # find_main_charecters("倚天屠龙记")
 
-for _, names in novel_names.iteritems():
+for _, names in novel_names.items():
     for name in names:
         jieba.add_word(name)
 
