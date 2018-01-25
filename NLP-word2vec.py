@@ -159,7 +159,6 @@ for c in range(N):
             print()
     print()
 
-
 import scipy.cluster.hierarchy as sch
 
 Y = sch.linkage(word_vectors, method="ward")
