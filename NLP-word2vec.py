@@ -119,10 +119,10 @@ find_relationship("令狐冲", "任我行", "郭靖")
 # 非情侣
 find_relationship("郭靖", "华筝", "杨过")
 
-# 韦小宝
-find_relationship("杨过", "小龙女", "韦小宝")
-find_relationship("令狐冲", "盈盈", "韦小宝")
-find_relationship("张无忌", "赵敏", "韦小宝")
+# # 韦小宝
+# find_relationship("杨过", "小龙女", "韦小宝")
+# find_relationship("令狐冲", "盈盈", "韦小宝")
+# find_relationship("张无忌", "赵敏", "韦小宝")
 
 find_relationship("郭靖", "降龙十八掌", "黄蓉")
 find_relationship("武当", "张三丰", "少林")
