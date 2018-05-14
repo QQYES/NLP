@@ -23,8 +23,8 @@ names = data[1::2]
 
 novel_names = {k: v.split() for k, v in zip(novels, names)}
 
-for name in novel_names['天龙八部'][:20]:
-    print(name)
+# for name in novel_names['天龙八部'][:20]:
+#     print(name)
 
 # def find_main_charecters(novel, num=10):
 #     with codecs.open('novels/{}.txt'.format(novel), encoding="utf8") as f:
@@ -74,6 +74,8 @@ novels = ["书剑恩仇录",
           "雪山飞狐",
           "鹿鼎记"]
 
+# novels = ["天龙八部"]
+
 sentences = []
 
 for novel in novels:
@@ -86,17 +88,17 @@ model = gensim.models.Word2Vec(sentences,
                                window=5,
                                min_count=5,
                                workers=4)
-for k, s in model.most_similar(positive=["乔峰", "萧峰"]):
-    print(k, s)
-
-for k, s in model.most_similar(positive=["阿朱"]):
-    print(k, s)
-
-for k, s in model.most_similar(positive=["丐帮"]):
-    print(k, s)
-
-for k, s in model.most_similar(positive=["降龙十八掌"]):
-    print(k, s)
+# for k, s in model.most_similar(positive=["乔峰", "萧峰"]):
+#     print(k, s)
+#
+# for k, s in model.most_similar(positive=["阿朱"]):
+#     print(k, s)
+#
+# for k, s in model.most_similar(positive=["丐帮"]):
+#     print(k, s)
+#
+# for k, s in model.most_similar(positive=["降龙十八掌"]):
+#     print(k, s)
 
 
 def find_relationship(a, b, c):
@@ -126,89 +128,89 @@ find_relationship("郭靖", "降龙十八掌", "黄蓉")
 find_relationship("武当", "张三丰", "少林")
 find_relationship("任我行", "魔教", "令狐冲")
 
-all_names = np.array(list(filter(lambda c: c in model, novel_names["天龙八部"])))
-word_vectors = np.array(list(map(lambda c: model[c], all_names)))
-
-from sklearn.cluster import KMeans
-
-N = 3
-
-label = KMeans(N).fit(word_vectors).labels_
-
-for c in range(N):
-    print("\n类别{}：".format(c + 1))
-    for idx, name in enumerate(all_names[label == c]):
-        print(name, )
-        if idx % 10 == 9:
-            print()
-    print()
-
-N = 4
-
-c = sp.stats.mode(label).mode
-
-remain_names = all_names[label != c]
-remain_vectors = word_vectors[label != c]
-remain_label = KMeans(N).fit(remain_vectors).labels_
-
-for c in range(N):
-    print("\n类别{}：".format(c + 1))
-    for idx, name in enumerate(remain_names[remain_label == c]):
-        print(name, )
-        if idx % 10 == 9:
-            print()
-    print()
-
-import scipy.cluster.hierarchy as sch
-
-Y = sch.linkage(word_vectors, method="ward")
-
-_, ax = plt.subplots(figsize=(10, 40))
-
-Z = sch.dendrogram(Y, orientation='right')
-idx = Z['leaves']
-
-ax.set_xticks([])
-ax.set_yticklabels(all_names[idx])
-ax.set_frame_on(False)
-
-plt.show()
-all_names = np.array(list(filter(lambda c: c in model, kungfu_names)))
-word_vectors = np.array(list(map(lambda c: model[c], all_names)))
-
-Y = sch.linkage(word_vectors, method="ward")
-
-_, ax = plt.subplots(figsize=(10, 35))
-
-Z = sch.dendrogram(Y, orientation='right')
-
-idx = Z['leaves']
-
-ax.set_xticks([])
-
-ax.set_yticklabels(all_names[idx])
-
-ax.set_frame_on(False)
-
-plt.show()
-
-all_names = np.array(list(filter(lambda c: c in model, bang_names)))
-word_vectors = np.array(list(map(lambda c: model[c], all_names)))
-
-all_names = np.array(all_names)
-
-Y = sch.linkage(word_vectors, method="ward")
-
-_, ax = plt.subplots(figsize=(10, 25))
-
-Z = sch.dendrogram(Y, orientation='right')
-
-idx = Z['leaves']
-
-ax.set_xticks([])
-
-ax.set_yticklabels(all_names[idx])
-
-ax.set_frame_on(False)
-
-plt.show()
+# all_names = np.array(list(filter(lambda c: c in model, novel_names["天龙八部"])))
+# word_vectors = np.array(list(map(lambda c: model[c], all_names)))
+#
+# from sklearn.cluster import KMeans
+#
+# N = 3
+#
+# label = KMeans(N).fit(word_vectors).labels_
+#
+# for c in range(N):
+#     print("\n类别{}：".format(c + 1))
+#     for idx, name in enumerate(all_names[label == c]):
+#         print(name, )
+#         if idx % 10 == 9:
+#             print()
+#     print()
+#
+# N = 4
+#
+# c = sp.stats.mode(label).mode
+#
+# remain_names = all_names[label != c]
+# remain_vectors = word_vectors[label != c]
+# remain_label = KMeans(N).fit(remain_vectors).labels_
+#
+# for c in range(N):
+#     print("\n类别{}：".format(c + 1))
+#     for idx, name in enumerate(remain_names[remain_label == c]):
+#         print(name, )
+#         if idx % 10 == 9:
+#             print()
+#     print()
+#
+# import scipy.cluster.hierarchy as sch
+#
+# Y = sch.linkage(word_vectors, method="ward")
+#
+# _, ax = plt.subplots(figsize=(10, 40))
+#
+# Z = sch.dendrogram(Y, orientation='right')
+# idx = Z['leaves']
+#
+# ax.set_xticks([])
+# ax.set_yticklabels(all_names[idx])
+# ax.set_frame_on(False)
+#
+# plt.show()
+# all_names = np.array(list(filter(lambda c: c in model, kungfu_names)))
+# word_vectors = np.array(list(map(lambda c: model[c], all_names)))
+#
+# Y = sch.linkage(word_vectors, method="ward")
+#
+# _, ax = plt.subplots(figsize=(10, 35))
+#
+# Z = sch.dendrogram(Y, orientation='right')
+#
+# idx = Z['leaves']
+#
+# ax.set_xticks([])
+#
+# ax.set_yticklabels(all_names[idx])
+#
+# ax.set_frame_on(False)
+#
+# plt.show()
+#
+# all_names = np.array(list(filter(lambda c: c in model, bang_names)))
+# word_vectors = np.array(list(map(lambda c: model[c], all_names)))
+#
+# all_names = np.array(all_names)
+#
+# Y = sch.linkage(word_vectors, method="ward")
+#
+# _, ax = plt.subplots(figsize=(10, 25))
+#
+# Z = sch.dendrogram(Y, orientation='right')
+#
+# idx = Z['leaves']
+#
+# ax.set_xticks([])
+#
+# ax.set_yticklabels(all_names[idx])
+#
+# ax.set_frame_on(False)
+#
+# plt.show()
